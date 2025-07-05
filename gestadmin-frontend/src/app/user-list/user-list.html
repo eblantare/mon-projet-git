@@ -1,1 +1,23 @@
-<p>user-list works!</p>
+<mat-card>
+    <mat-card-title>Liste des utilisateurs</mat-card-title>
+    <mat-card-content>
+        <table mat-table [dataSource]="users" class="full-widyh" >
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td matCell *matCellDef="let u">{{u.id}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef>Utilisateur</th>
+                <td matCell *matCellDef ="let u">{{u.username}}</td>
+            </ng-container>
+            <ng-container matColumnDef="roles">
+                <th mat-header-cell *matHeaderCellDef>Roles</th>
+                <td matCell *matCellDef ="let u">{{u.roles.join(',')}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="['id','username','roles']"></tr>
+            <tr mat-row *matRowDef="let ro;columns:['id','username','roles']"></tr>
+        </table>
+        <div *ngIf="error" class="error">{{ error }}</div>
+    </mat-card-content>
+</mat-card>

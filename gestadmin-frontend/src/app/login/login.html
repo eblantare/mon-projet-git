@@ -1,0 +1,32 @@
+<div class="login-background">
+ <div class="login-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-card-header>
+               <mat-card-title>Connexion</mat-card-title> 
+               <mat-card-subtitle>{{currentTime}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field [appearance]="'outline'" class="full-width" >
+                    <mat-label>Utilisateur</mat-label>
+                    <input matInput formControlName="username" required>
+                </mat-form-field>
+                 <mat-form-field [appearance]="'outline'" class="full-width">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput type="password" formControlName="password" required>
+                </mat-form-field>
+                <mat-checkbox formControlName="rememberMe">Se souvenir de moi</mat-checkbox>
+                <div class="forgot-link">
+                    <a router-link="/forgot-password">Mot de passe oublié</a>
+                </div>
+                <div *ngIf="error" class="error">{{error}}</div>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button mat-raised-button color="primary" type="submit"
+                 [disabled]="form.invalid">Se connecter</button>
+            </mat-card-actions>
+        </mat-card>
+
+    </form>
+</div>
+</div>
