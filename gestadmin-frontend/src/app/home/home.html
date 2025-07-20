@@ -1,0 +1,10 @@
+<header>
+  <img src="assets/logo.png" alt="Logo du service" />
+  <nav>
+    <a routerLink="/create-user" *ngIf="isAdmin">Créer un utilisateur</a>
+    <a (click)="logout()">Se déconnecter</a>
+  </nav>
+</header>
+<main>
+  Bienvenue, {{ username }}
+</main>

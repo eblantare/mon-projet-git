@@ -27,7 +27,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+                  "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                  "src/styles.scss"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -66,7 +67,8 @@
               "buildTarget": "gestadmin-frontend:build:production"
             },
             "development": {
-              "buildTarget": "gestadmin-frontend:build:development"
+              "buildTarget": "gestadmin-frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

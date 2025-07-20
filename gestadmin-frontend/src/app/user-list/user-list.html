@@ -1,23 +1,46 @@
 <mat-card>
     <mat-card-title>Liste des utilisateurs</mat-card-title>
     <mat-card-content>
-        <table mat-table [dataSource]="users" class="full-widyh" >
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td matCell *matCellDef="let u">{{u.id}}</td>
+     <div>
+        <div style="display: flex; justify-content: flex-end; margin: 1em 0;">
+          <input #searchInput type="text" placeholder="Rechercher...."
+          (input)="onSearchChange(searchInput.value)" 
+          style="padding: 8px; border-radius: 8px; border: 1px solid #ccc; width: 250px;" />
+    </div>
+        <table mat-table [dataSource]="users" class="mat-elevation-z8">
+            <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef>Nom</th>
+                <td matCell *matCellDef ="let user">{{user.nom}}</td>
             </ng-container>
-
+            <ng-container matColumnDef="prenoms">
+                <th mat-header-cell *matHeaderCellDef>Prénoms</th>
+                <td matCell *matCellDef ="let user">{{user.prenoms}}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td matCell *matCellDef ="let user">{{user.email}}</td>
+            </ng-container>
+            <ng-container matColumnDef="telephone">
+                <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+                <td matCell *matCellDef ="let user">{{user.telephone}}</td>
+            </ng-container>
             <ng-container matColumnDef="username">
-                <th mat-header-cell *matHeaderCellDef>Utilisateur</th>
-                <td matCell *matCellDef ="let u">{{u.username}}</td>
+                <th mat-header-cell *matHeaderCellDef>Nom d'utilisateur</th>
+                <td matCell *matCellDef ="let user">{{user.username}}</td>
             </ng-container>
             <ng-container matColumnDef="roles">
                 <th mat-header-cell *matHeaderCellDef>Roles</th>
-                <td matCell *matCellDef ="let u">{{u.roles.join(',')}}</td>
+                <td matCell *matCellDef ="let user">{{user.roles.join(',')}}</td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="['id','username','roles']"></tr>
-            <tr mat-row *matRowDef="let ro;columns:['id','username','roles']"></tr>
+            <tr mat-header-row *matHeaderRowDef="['nom','prenoms','email','telephone','username','roles']"></tr>
+            <tr mat-row *matRowDef="let row;columns:['nom','prenoms','email','telephone','username','roles']"></tr>
         </table>
+        <mat-paginator>
+            [length] = "totalPages * size"
+            [pageSize] = "size"
+            (page) = "onPageChange($event.pageIndex)"
+        </mat-paginator>
+        </div>
         <div *ngIf="error" class="error">{{ error }}</div>
     </mat-card-content>
 </mat-card>

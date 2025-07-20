@@ -1,49 +1,104 @@
+/* styles.scss ou component.scss */
+
 .login-background {
-  background: linear-gradient(135deg, #2c3e50, #3498db);
+  background: linear-gradient(to right, #7ab5f0, #d9e2ec);
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .login-container {
   width: 100%;
   max-width: 400px;
-  padding: 20px;
-  box-sizing: border-box;
+  padding: 1rem;
 }
 
 mat-card {
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
 
-  mat-card-title {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    color: #2c3e50;
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+mat-card-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #607d8b;
+  margin-bottom: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+
+  .mat-form-field-outline {
+    border-radius: 12px;
   }
 
-  mat-form-field {
-    margin-bottom: 20px;
+  .mat-input-element {
+    background-color: #f9f9f9;
+    padding: 14px;
+    border-radius: 12px;
   }
 
-  .error {
-    color: #e74c3c;
-    margin-top: 10px;
+  .mat-form-field-appearance-outline .mat-form-field-outline-start,
+  .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 12px;
+  }
+}
+
+.custom-password-field button {
+  margin-right: 4px;
+}
+
+mat-checkbox {
+  margin-top: 10px;
+}
+
+.forgot-link {
+  text-align: right;
+  margin-top: 10px;
+
+  a {
+    color: #3f51b5;
+    text-decoration: none;
     font-size: 14px;
-    text-align: center;
   }
 
-  mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
+  a:hover {
+    text-decoration: underline;
   }
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+mat-card-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
 
   button {
-    width: 100%;
-    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px 24px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
+  .login-button:disabled {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
 }
