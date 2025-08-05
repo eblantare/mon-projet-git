@@ -1,2 +1,4 @@
-/mvnw text eol=lf
-*.cmd text eol=crlf
+# /mvnw text eol=lf
+# *.cmd text eol=crlf
+# Force les fichiers texte à utiliser LF dans Git
+* text=auto eol=lf
