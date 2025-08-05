@@ -13,5 +13,6 @@ public class UserListDto {
     private String telephone;
     private String username;
     private List<String> roles;
+    private String photo;
 
 }

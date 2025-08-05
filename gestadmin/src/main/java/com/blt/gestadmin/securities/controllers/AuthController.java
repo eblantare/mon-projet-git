@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,12 +24,19 @@ import org.springframework.http.HttpStatus;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.blt.gestadmin.securities.dto.LoginRequest;
+import com.blt.gestadmin.securities.entity.Utilisateur;
+import com.blt.gestadmin.securities.repository.UtilisateurRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins="http://localhost:4200", allowCredentials="true")
 public class AuthController {
     @Autowired
-private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) {
             if(authentication == null || !authentication.isAuthenticated())
@@ -45,11 +55,11 @@ private AuthenticationManager authenticationManager;
            return ResponseEntity.status(403).build();
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?>logout(HttpServletRequest request){
-        request.getSession().invalidate();
-        return ResponseEntity.ok("Logged out");
-    }
+    // @PostMapping("/logout")
+    // public ResponseEntity<?>logout(HttpServletRequest request){
+    //     request.getSession().invalidate();
+    //     return ResponseEntity.ok("Logged out");
+    // }
     @PostMapping("/login")
     public ResponseEntity<?> login(
     @RequestBody LoginRequest loginRequest, HttpServletRequest request) {
@@ -57,6 +67,11 @@ private AuthenticationManager authenticationManager;
             String username = loginRequest.getUsername();
             String password = loginRequest.getPassword();
         try {
+            Utilisateur utilisateur= utilisateurRepository.findUserByUsername(username)
+            .orElseThrow(()->new UsernameNotFoundException("User not found"));
+            System.out.println("Mot de passe saisi     : " + password);
+            System.out.println("Mot de passe en base   : " + utilisateur.getPassword());
+            System.out.println("Match ? " + passwordEncoder.matches(password, utilisateur.getPassword()));
             Authentication auth = authenticationManager.authenticate(
                  new UsernamePasswordAuthenticationToken(username, password)
             );

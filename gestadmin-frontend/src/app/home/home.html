@@ -1,10 +1,44 @@
-<header>
-  <img src="assets/logo.png" alt="Logo du service" />
-  <nav>
-    <a routerLink="/create-user" *ngIf="isAdmin">Créer un utilisateur</a>
-    <a (click)="logout()">Se déconnecter</a>
+<div class="home-container">
+  <header class="navbar">
+      <div class="logo">
+         <img src="assets/images/logo/logo1.png" alt="Logo du service"  height="100" width="100"/>
+
+      </div>
+      <!-- <img src="C:\projets\gestadmin\photo1.jpg" alt="Logo du service" /> -->
+
+  <nav class="nav-links">
+    <a *ngIf="!username" routerLink="/login" routerLinkActive="active">Sign In</a>
+    <a  *ngIf="!username" routerLinkActive="active">Register</a>
+    <!-- <a routerLink="/create-user" *ngIf="isAdmin">Créer un utilisateur</a> -->
+    <a *ngIf="username" routerLinkActive="active">Dashboard</a>
+    <div class="usermenu" *ngIf="username" (mouseleave)="closeMenu()">
+      <img [src]="photo" alt="Avatar utilisateur" class="avatar clickable" (click)="toggleMenu()"/>
+      <div class="dropdown" *ngIf="isMenuOpen">
+        <div class="dropdown-item" (click)="goToProfile()">Profil</div>
+        <div class="dropdown-item" (click)="logout()">Déconnexion</div>
+
+      </div>
+    </div>
+    <!-- <a *ngIf="username" (click)="logout()"> Logout</a> -->
   </nav>
-</header>
-<main>
-  Bienvenue, {{ username }}
-</main>
+  <div *ngIf="username" class="user-info">
+    <img [src]="photo" alt="Avatar utilisateur" class="avatar"/>
+    <span class="username">{{username}}</span>
+
+  </div>
+  </header>
+
+  <main class="main-content">
+     <img src="assets/images/logo/logo1.png" alt="Logo centré" class="centered-logo"/>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2025 Tous droits réservés.</p>
+  </footer>
+</div>
+<!-- <main class="main-content d-flex justity-content-center align-items-center text-center" >
+  <div class="welcome-box">
+    <h1 class="display-4 fw-bold text-white">Bienvenue, {{ username }}</h1>
+    <p class="lead text-white">Utiliser les menus pour naviguer dans l'application</p>
+  </div>
+
+</main> -->

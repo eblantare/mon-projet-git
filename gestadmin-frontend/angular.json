@@ -26,8 +26,10 @@
                 "input": "public"
               }
             ],
+
             "styles": [
                   "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                  "node_modules/bootstrap/dist/css/bootstrap.min.css",
                   "src/styles.scss"
             ],
             "server": "src/main.server.ts",
@@ -82,9 +84,11 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+                "src/assets",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": ""
               }
             ],
             "styles": [

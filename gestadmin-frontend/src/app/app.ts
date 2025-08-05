@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
+  standalone:true,
   imports: [RouterOutlet,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -18,9 +19,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatCheckboxModule,
     MatButtonModule,
+    RouterModule
   ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss']
 })
 export class App {
   protected title = 'gestadmin-frontend';

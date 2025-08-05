@@ -34,7 +34,7 @@ public class Utilisateur {
     @Id @GeneratedValue
     @Column(name="user_id")
     private Long id;
-    @Column(name="user_name")
+    @Column(name="user_nom")
     private String nom;
     @Column(name="user_surname")
     private String prenoms;
@@ -56,6 +56,8 @@ public class Utilisateur {
     @JoinTable(name="sec_users_roles", joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private List<Role> roles;
+    @Column(name="user_photo")
+    private String photo;
             
     
 }

@@ -1,6 +1,6 @@
 <div class="login-background">
  <div class="login-container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()">
         <mat-card>
             <mat-card-header>
                <mat-card-title>Connexion</mat-card-title>
@@ -9,7 +9,7 @@
             <mat-card-content>
   <mat-form-field appearance="outline">
     <input matInput placeholder="Nom d'utilisateur" formControlName="username" type="text" required />
-    <mat-error *ngIf="form.get('username')?.invalid && form.get('username') ?.touched">
+    <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username') ?.touched">
       Nom d'utilisateur requis
     </mat-error>
   </mat-form-field>

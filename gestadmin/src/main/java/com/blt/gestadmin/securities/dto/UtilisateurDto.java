@@ -18,11 +18,16 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class UtilisateurDto {
     private Long id;
+    private String nom;
+    private String prenoms;
+    private String email;
+    private String telephone;
     @Size(min = 8)
     private String username;
     @Size(min = 8)
     private String password;
     private List<String> roles;
+    private String photo;
     
-    
+             
 }

@@ -1,0 +1,122 @@
+.home-container{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url('../../assets/images/photo1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: #0d6efd; // 💙 Couleur principale
+  color: white;
+  padding: 1rem 2rem;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgba(13, 110, 253, 0.85); // transparence légère
+}
+
+.nav-links {
+  display:flex;
+  gap: 1.5rem;
+}
+
+.nav-links a{
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+
+}
+.nav-links a:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    // text-decoration: none;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+
+.logo img {
+  height: 60px;
+  // float: right;
+}
+.centered-logo {
+  max-width: 300px;
+  width: 100%;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.footer {
+  // background-color: #0d6efd;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(13, 110, 253, 0.85);
+  position: sticky;
+  bottom: 0;
+}
+
+.user-info{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+.username{
+  color: white;
+  font-weight: bold;
+}
+
+.user-menu{
+  position: relative;
+  display: inline-block;
+
+.avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dropdown{
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 150px;
+  box-shadow: Opx 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  .dropdown-item{
+    padding: 10px;
+    cursor:pointer;
+    transition: background-color 0.2;
+    &:hover{
+      background-color: #f0f0f0;
+    }
+
+  }
+}
+}

@@ -33,4 +33,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
     Page<Utilisateur> searchUsers(@Param("search") String search, Pageable pageable);
 
     Page<Utilisateur> findByUsernameContainingIgnoreCase(String search, Pageable pageable);
+
+    boolean existsByEmail(String email);
+    boolean existsByTelephone(String telephone);
 }

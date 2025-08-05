@@ -9,7 +9,7 @@ export interface User {
       email : string;
       role : string;
       password : string;
-  
+
 }
 @Injectable({
   providedIn: 'root'
@@ -20,15 +20,17 @@ export class UserService{
   constructor(private http:HttpClient){}
 
   //Créer un urilisateur
-  createUser(user:User):Observable<User>{
-    return this.http.post<User>(this.apiurl,user);
+  createUser(user:any):Observable<any>{
+    return this.http.post('http://localhost:8084/api/admin/create-user',user,{
+      responseType: 'text'
+    });
 
   }
   //Liste de tous les utilisateurs (facultatif)
   getUsers():Observable<User[]>{
             return this.http.get<User[]>(this.apiurl);
   }
-  
+
   //Supprimer un utilisateur (facultaif)
 
   deleteUser(id:string):Observable<any>{

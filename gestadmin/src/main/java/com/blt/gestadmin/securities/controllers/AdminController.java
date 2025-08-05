@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author DELL
+ * @author                                                                                                                                                                                                                                                                                                                                                                                                               
  */
 
 @RestController
 @RequiredArgsConstructor
 //@PreAuthorize("hasRole('ADMIN')")
+@CrossOrigin(origins="http://localhost:4200", allowCredentials="true")
 @RequestMapping("/api/admin")
 public class AdminController {
 //    @Autowired
@@ -45,17 +47,30 @@ public class AdminController {
     private final RoleRepository RoleRepository;
     private final PasswordEncoder PasswordEncoder;
     private final UserListService userListService;
-
     @PostMapping("/create-user")
     public ResponseEntity<?> createUser(@RequestBody UtilisateurDto utilisateurDto){
       if(utilisateurRepository.existsByUsername(utilisateurDto.getUsername())) 
-          return ResponseEntity.badRequest().body("username alredy exists");
-       
+          return ResponseEntity.badRequest().body("username already exists");
+
+        if(utilisateurRepository.existsByEmail(utilisateurDto.getEmail())){
+            return ResponseEntity.badRequest().body("L'email est déjà utilisé");
+        }
+                if(utilisateurRepository.existsByTelephone(utilisateurDto.getTelephone())){
+                    return ResponseEntity.badRequest().body("Le téléphone est déjà utilisé");
+                }                  
         Utilisateur u = new Utilisateur();
+        u.setNom(utilisateurDto.getNom());
+        u.setPrenoms(utilisateurDto.getPrenoms());
+        u.setEmail(utilisateurDto.getEmail());
+        u.setTelephone(utilisateurDto.getTelephone());
         u.setUsername(utilisateurDto.getUsername());
         u.setPassword(PasswordEncoder.encode(utilisateurDto.getPassword()));
         u.setEnabled(true);
+        u.setPhoto(utilisateurDto.getPhoto());
         List<Role> roles =RoleRepository.findByNameIn(utilisateurDto.getRoles());
+        if(roles.isEmpty()){
+            return ResponseEntity.badRequest().body("Aucun role valide fourni");
+        }
         u.setRoles(roles);
         utilisateurRepository.save(u);
         

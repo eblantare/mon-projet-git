@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "attr-case": [
+            "error",
+            {
+                "ignoreAttributes": ["formControlName", "ngModel", "routerLink", "formGroup"]
+            }
+        ]
+    }
+}

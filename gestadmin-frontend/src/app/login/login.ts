@@ -31,7 +31,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 export class Login {
 
-  form!:FormGroup;
+  loginForm!:FormGroup;
   username='';
   password='';
   error='';
@@ -40,7 +40,7 @@ export class Login {
    canLogin = false;
 constructor(private fb:FormBuilder, private authService:AuthService,
   private http:HttpClient,private router:Router){
-  	this.form = this.fb.group({
+  	this.loginForm = this.fb.group({
 		username:['',[Validators.required]],
 		password:['',[Validators.required,this.passwordValidator]],
     rememberMe:[false]
@@ -55,9 +55,9 @@ constructor(private fb:FormBuilder, private authService:AuthService,
 ngOnInit(){
   this.updateTime();
   setInterval(()=>this.updateTime(),1000);//Met à jour l'heure chaque seconde
-   this.form.valueChanges.subscribe(()=>{
-    this.canLogin = this.form.valid && this.form.get('username')?.value?.trim()!=''
-    && this.form.get('password')?.value?.trim()!='';
+   this.loginForm.valueChanges.subscribe(()=>{
+    this.canLogin = this.loginForm.valid && this.loginForm.get('username')?.value?.trim()!=''
+    && this.loginForm.get('password')?.value?.trim()!='';
    });
 }
 
@@ -70,21 +70,21 @@ updateTime(){
     this.hide = !this.hide;
    }
   getEmail(){
-    return this.form.get('email');
+    return this.loginForm.get('email');
   }
 
   getUsername(){
-    return this.form.get('username');
+    return this.loginForm.get('username');
   }
 
   getPassword(){
-    return this.form.get('password');
+    return this.loginForm.get('password');
   }
  canSubmit(): boolean {
-  const username = this.form.get('username');
-  const password = this.form.get('password');
+  const username = this.loginForm.get('username');
+  const password = this.loginForm.get('password');
   if (!username || !password){return false;}
-  return this.form.valid &&
+  return this.loginForm.valid &&
     username.valid &&
     password.valid &&
     username.value?.trim() !== '' &&
@@ -100,22 +100,23 @@ passwordValidator(control:AbstractControl):ValidationErrors | null{
 
 
 passwordTouchedAndInvalid():boolean{
-  const control = this.form.get('password');
+  const control = this.loginForm.get('password');
   return !!control && control.touched && control.dirty && control.hasError('weakPassword');
 
 }
 
   onSubmit(){
     console.log('ONSUBMIT DE LA METHODE LOGIN****1');
-    if(this.form.invalid){return;}
-    const{username,password,rememberMe} = this.form.value;
+    if(this.loginForm.invalid){return;}
+    const{username,password,rememberMe} = this.loginForm.value;
     // this.http.post('/login',{username,password},{observe:'response'})
     this.authService.login(username,password).subscribe({
-    next: () => {
+    next: (res) => {
+      console.log("Login success", res.body);
       this.authService.getCurrentUser().subscribe({
-        next: user => {
+        next: (user) => {
           // Stockage local si "se souvenir"
-          console.log("Login success", user);
+          console.log("Login success", user.body);
           if (rememberMe) {
             localStorage.setItem('rememberedUser', username);
 
@@ -124,12 +125,14 @@ passwordTouchedAndInvalid():boolean{
             localStorage.removeItem('rememberedUser');
           }
           // Redirection selon le rôle
-          if (user.roles.includes('ROLE_ADMIN')) {
-            this.router.navigate(['/create-user']);
-            console.log('ONSUBMIT DE LA METHODE LOGIN ******* 2');
-          } else {
-            this.router.navigate(['/home']); // ou '/'
-          }
+          // const user = response.body;
+          // if (user.roles && user.roles.includes('ROLE_ADMIN')) {
+          //   this.router.navigate(['/home']);
+          //   console.log('ONSUBMIT DE LA METHODE LOGIN ******* 2');
+          // } else {
+          //   this.router.navigate(['/create-user']); // ou '/'
+          // }
+          this.router.navigateByUrl('/home');
         },
         error: () => {
           console.error("Login error *********1");
